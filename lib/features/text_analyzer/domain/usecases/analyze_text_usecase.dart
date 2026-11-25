@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/abstract/models.dart';
+import '../../../../core/abstract/typedefs.dart';
 import '../entities/text_stats.dart';
 import '../repositories/text_analyzer_repository.dart';
 

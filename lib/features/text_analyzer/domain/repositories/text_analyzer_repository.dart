@@ -1,4 +1,4 @@
-import '../../../../core/abstract/models.dart';
+import '../../../../core/abstract/typedefs.dart';
 import '../entities/text_stats.dart';
 
 abstract class TextAnalyzerRepository {
