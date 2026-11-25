@@ -7,7 +7,7 @@ A high-performance Flutter application built for real-time text analysis with ba
 ---
 
 ## 🚀 App Download & Releases
-- **Latest Android APK / Release**: [Download Live Text Analyzer v1.0.0](https://github.com/your-username/syncrow_text_analyzer/releases/latest) *(Placeholder URL)*
+- **Latest Android APK / Release**: [Download Live Text Analyzer v1.0.0](https://drive.google.com/file/d/1-Aj3zMMoQko8FYB96buhTosyb_pBtY2Q/view?usp=sharing) *(Placeholder URL)*
 
 ---
 
@@ -28,20 +28,20 @@ A high-performance Flutter application built for real-time text analysis with ba
 ```text
 lib/
 ├── core/
-│   ├── abstract/        # Core typedefs (FutureEither)
-│   ├── di/              # Dependency Injection (GetIt & Injectable)
-│   ├── errors/          # Failure models
-│   ├── services/        # Native IsolateService
-│   ├── theme/           # Material 3 App Theme
-│   └── utils/           # Text analyzer algorithms & helpers
+│   ├── abstract/        # Shared type definitions
+│   ├── di/              # Dependency injection setup
+│   ├── errors/          # Error and failure types
+│   ├── services/        # Shared services, including isolate support
+│   ├── theme/           # App colors and theme
+│   └── utils/           # Text analysis helpers
 │
 ├── features/
-│   ├── home/            # Home hub screen
-│   ├── splash/          # Animated splash screen
-│   └── text_analyzer/   # Core Live Text Analyzer feature
-│       ├── data/        # Datasources, models & repository implementations
-│       ├── domain/      # Entities, repository contracts & usecases
-│       └── presentation/# Cubit state management, pages & widgets
+│   ├── home/            # Home screen
+│   ├── splash/          # Splash screen
+│   └── text_analyzer/   # Text analyzer feature
+│       ├── data/        # Data sources, models, and repositories
+│       ├── domain/      # Entities, repository contracts, and use cases
+│       └── presentation/# Cubit, screens, and widgets
 │
 └── main.dart
 ```
