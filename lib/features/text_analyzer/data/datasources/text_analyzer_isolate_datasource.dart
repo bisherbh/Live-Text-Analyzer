@@ -6,21 +6,34 @@ import '../models/text_analysis_result_model.dart';
 import '../models/word_frequency_model.dart';
 
 abstract class TextAnalyzerIsolateDatasource {
-  Future<TextAnalysisResultModel> analyzeText(TextAnalysisRequest request);
+  Future<TextAnalysisResultModel> analyzeText(
+    TextAnalysisRequest request, {
+    bool simulateFailure = false,
+  });
 }
 
 @LazySingleton(as: TextAnalyzerIsolateDatasource)
-class TextAnalyzerIsolateDatasourceImpl implements TextAnalyzerIsolateDatasource {
+class TextAnalyzerIsolateDatasourceImpl
+    implements TextAnalyzerIsolateDatasource {
   final IIsolateService _isolateService;
 
   TextAnalyzerIsolateDatasourceImpl(this._isolateService);
 
   @override
-  Future<TextAnalysisResultModel> analyzeText(TextAnalysisRequest request) {
-    return _isolateService.run(analyzeTextInIsolate, request);
+  Future<TextAnalysisResultModel> analyzeText(
+    TextAnalysisRequest request, {
+    bool simulateFailure = false,
+  }) {
+    return _isolateService.run(
+      analyzeTextInIsolate,
+      request,
+      simulateFailure: simulateFailure,
+    );
   }
 
-  static TextAnalysisResultModel analyzeTextInIsolate(TextAnalysisRequest request) {
+  static TextAnalysisResultModel analyzeTextInIsolate(
+    TextAnalysisRequest request,
+  ) {
     final text = request.text;
     final requestId = request.requestId;
 

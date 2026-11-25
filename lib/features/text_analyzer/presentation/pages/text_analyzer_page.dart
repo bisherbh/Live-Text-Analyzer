@@ -62,6 +62,15 @@ class _TextAnalyzerViewState extends State<_TextAnalyzerView> {
             const Text('Live Text Analyzer'),
           ],
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.bug_report_outlined),
+            tooltip: 'Simulate Isolate Failure',
+            onPressed: () {
+              context.read<TextAnalyzerCubit>().simulateIsolateFailure();
+            },
+          ),
+        ],
       ),
       body: SafeArea(
         child: SingleChildScrollView(

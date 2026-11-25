@@ -18,10 +18,12 @@ class TextAnalyzerRepositoryImpl implements TextAnalyzerRepository {
   FutureEither<({int requestId, TextStats stats})> analyzeText({
     required String text,
     required int requestId,
+    bool simulateFailure = false,
   }) async {
     try {
       final result = await _datasource.analyzeText(
         TextAnalysisRequest(text: text, requestId: requestId),
+        simulateFailure: simulateFailure,
       );
       return Right((requestId: result.requestId, stats: result.toEntity()));
     } on Failure catch (failure) {

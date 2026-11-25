@@ -13,7 +13,12 @@ class AnalyzeTextUseCase {
   FutureEither<({int requestId, TextStats stats})> call({
     required String text,
     required int requestId,
+    bool simulateFailure = false,
   }) {
-    return _repository.analyzeText(text: text, requestId: requestId);
+    return _repository.analyzeText(
+      text: text,
+      requestId: requestId,
+      simulateFailure: simulateFailure,
+    );
   }
 }

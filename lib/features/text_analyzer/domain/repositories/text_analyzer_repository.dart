@@ -5,5 +5,6 @@ abstract class TextAnalyzerRepository {
   FutureEither<({int requestId, TextStats stats})> analyzeText({
     required String text,
     required int requestId,
+    bool simulateFailure = false,
   });
 }

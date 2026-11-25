@@ -14,7 +14,8 @@ class TextAnalyzerCubit extends Cubit<TextAnalyzerState> {
 
   int _currentRequestId = 0;
 
-  TextAnalyzerCubit(this._analyzeTextUseCase) : super(const TextAnalyzerState.initial()) {
+  TextAnalyzerCubit(this._analyzeTextUseCase)
+    : super(const TextAnalyzerState.initial()) {
     _setupDebounceStream();
     onTextChanged('');
   }
@@ -29,7 +30,13 @@ class TextAnalyzerCubit extends Cubit<TextAnalyzerState> {
     _textSubject.add(text);
   }
 
-  Future<void> _processTextAnalysis(String text) async {
+  Future<void> simulateIsolateFailure() =>
+      _processTextAnalysis('', simulateFailure: true);
+
+  Future<void> _processTextAnalysis(
+    String text, {
+    bool simulateFailure = false,
+  }) async {
     final requestId = DateTime.now().millisecondsSinceEpoch;
     _currentRequestId = requestId;
 
@@ -38,6 +45,7 @@ class TextAnalyzerCubit extends Cubit<TextAnalyzerState> {
     final resultEither = await _analyzeTextUseCase(
       text: text,
       requestId: requestId,
+      simulateFailure: simulateFailure,
     );
 
     resultEither.fold(
