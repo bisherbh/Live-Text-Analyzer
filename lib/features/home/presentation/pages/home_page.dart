@@ -78,15 +78,6 @@ class HomePage extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 8),
-                    // const Text(
-                    //   'Analyze words, letters, whitespace, and top frequencies in real-time off the main UI thread.',
-                    //   style: TextStyle(
-                    //     fontSize: 14,
-                    //     color: AppTheme.textSecondaryColor,
-                    //     height: 1.5,
-                    //   ),
-                    //   textAlign: TextAlign.center,
-                    // ),
                   ],
                 ),
               ),
