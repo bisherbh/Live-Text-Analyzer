@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../../core/abstract/models.dart';
 import '../../../../core/errors/failures.dart';
 import '../../domain/entities/text_stats.dart';
 import '../../domain/repositories/text_analyzer_repository.dart';
@@ -14,7 +15,7 @@ class TextAnalyzerRepositoryImpl implements TextAnalyzerRepository {
   TextAnalyzerRepositoryImpl(this._datasource);
 
   @override
-  Future<Either<Failure, ({int requestId, TextStats stats})>> analyzeText({
+  FutureEither<({int requestId, TextStats stats})> analyzeText({
     required String text,
     required int requestId,
   }) async {

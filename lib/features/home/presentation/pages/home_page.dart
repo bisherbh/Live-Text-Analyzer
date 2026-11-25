@@ -15,18 +15,23 @@ class HomePage extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.info_outline),
             onPressed: () {
-              showAboutDialog(
+              showDialog<void>(
                 context: context,
-                applicationName: 'Live Text Analyzer',
-                applicationVersion: '1.0.0',
-                applicationIcon: Image.asset(
-                  'assets/images/Live Text Analyzer Coding Task.png',
-                  width: 48,
-                  height: 48,
+                builder: (dialogContext) => AlertDialog(
+                  icon: Image.asset(
+                    'assets/images/Live Text Analyzer Coding Task.png',
+                    width: 48,
+                    height: 48,
+                  ),
+                  title: const Text('Live Text Analyzer'),
+                  content: const Text('Version 1.0.0\n\nBuilt with ❤️'),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.of(dialogContext).pop(),
+                      child: const Text('Close'),
+                    ),
+                  ],
                 ),
-                children: const [
-                  Text('Built with Flutter, Cubit, Freezed, and Native Dart Isolates for real-time text statistics.'),
-                ],
               );
             },
           ),
@@ -73,15 +78,15 @@ class HomePage extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 8),
-                    const Text(
-                      'Analyze words, letters, whitespace, and top frequencies in real-time off the main UI thread.',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: AppTheme.textSecondaryColor,
-                        height: 1.5,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
+                    // const Text(
+                    //   'Analyze words, letters, whitespace, and top frequencies in real-time off the main UI thread.',
+                    //   style: TextStyle(
+                    //     fontSize: 14,
+                    //     color: AppTheme.textSecondaryColor,
+                    //     height: 1.5,
+                    //   ),
+                    //   textAlign: TextAlign.center,
+                    // ),
                   ],
                 ),
               ),
@@ -99,30 +104,31 @@ class HomePage extends StatelessWidget {
                 icon: Icons.memory,
                 iconColor: const Color(0xFF2563EB),
                 title: 'Native Dart Isolate Engine',
-                subtitle: 'Offloads computation to background thread via native Isolate.run.',
+                subtitle:
+                    'Offloads computation to background thread via native Isolate.run.',
               ),
               const SizedBox(height: 12),
               _buildFeatureTile(
                 icon: Icons.speed,
                 iconColor: const Color(0xFF10B981),
-                title: '300ms Input Debouncing',
-                subtitle: 'Maintains silky smooth typing even when pasting long notes.',
+                title: 'Optimized Input Performance',
+                subtitle:
+                    'Ensures responsive typing and efficient text processing.',
               ),
               const SizedBox(height: 12),
               _buildFeatureTile(
                 icon: Icons.bar_chart,
                 iconColor: const Color(0xFF8B5CF6),
                 title: 'Top 5 Words Frequency',
-                subtitle: 'Live ranking breakdown of your most frequently used words.',
+                subtitle:
+                    'Live ranking breakdown of your most frequently used words.',
               ),
               const SizedBox(height: 32),
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                      builder: (_) => const TextAnalyzerPage(),
-                    ),
+                    MaterialPageRoute(builder: (_) => const TextAnalyzerPage()),
                   );
                 },
                 style: ElevatedButton.styleFrom(

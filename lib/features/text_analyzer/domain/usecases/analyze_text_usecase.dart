@@ -1,7 +1,6 @@
-import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/errors/failures.dart';
+import '../../../../core/abstract/models.dart';
 import '../entities/text_stats.dart';
 import '../repositories/text_analyzer_repository.dart';
 
@@ -11,7 +10,7 @@ class AnalyzeTextUseCase {
 
   AnalyzeTextUseCase(this._repository);
 
-  Future<Either<Failure, ({int requestId, TextStats stats})>> call({
+  FutureEither<({int requestId, TextStats stats})> call({
     required String text,
     required int requestId,
   }) {
