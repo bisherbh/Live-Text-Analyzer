@@ -6,5 +6,6 @@ abstract class TextAnalyzerRepository {
     required String text,
     required int requestId,
     bool simulateFailure = false,
+    bool excludeStopWords = true,
   });
 }

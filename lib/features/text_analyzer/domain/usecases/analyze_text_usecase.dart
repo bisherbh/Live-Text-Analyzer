@@ -14,11 +14,13 @@ class AnalyzeTextUseCase {
     required String text,
     required int requestId,
     bool simulateFailure = false,
+    bool excludeStopWords = true,
   }) {
     return _repository.analyzeText(
       text: text,
       requestId: requestId,
       simulateFailure: simulateFailure,
+      excludeStopWords: excludeStopWords,
     );
   }
 }

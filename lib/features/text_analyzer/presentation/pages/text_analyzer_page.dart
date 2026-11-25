@@ -31,6 +31,7 @@ class _TextAnalyzerView extends StatefulWidget {
 
 class _TextAnalyzerViewState extends State<_TextAnalyzerView> {
   late final TextEditingController _controller;
+  bool _excludeStopWords = true;
 
   @override
   void initState() {
@@ -48,6 +49,7 @@ class _TextAnalyzerViewState extends State<_TextAnalyzerView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        surfaceTintColor: Colors.transparent,
         title: Row(
           children: [
             Container(
@@ -56,7 +58,10 @@ class _TextAnalyzerViewState extends State<_TextAnalyzerView> {
                 color: AppTheme.primaryColor.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: const Icon(Icons.analytics_outlined, color: AppTheme.primaryColor),
+              child: const Icon(
+                Icons.analytics_outlined,
+                color: AppTheme.primaryColor,
+              ),
             ),
             const SizedBox(width: 12),
             const Text('Live Text Analyzer'),
@@ -82,6 +87,23 @@ class _TextAnalyzerViewState extends State<_TextAnalyzerView> {
                 controller: _controller,
                 onChanged: (text) {
                   context.read<TextAnalyzerCubit>().onTextChanged(text);
+                },
+              ),
+              const SizedBox(height: 24),
+              SwitchListTile.adaptive(
+                contentPadding: EdgeInsets.zero,
+                title: const Text('Exclude common stop words'),
+                subtitle: const Text(
+                  'Remove stop words from the most frequent words',
+                ),
+                value: _excludeStopWords,
+                onChanged: (excludeStopWords) {
+                  setState(() {
+                    _excludeStopWords = excludeStopWords;
+                  });
+                  context.read<TextAnalyzerCubit>().setExcludeStopWords(
+                    excludeStopWords,
+                  );
                 },
               ),
               const SizedBox(height: 24),
@@ -131,7 +153,9 @@ class _TextAnalyzerViewState extends State<_TextAnalyzerView> {
                               height: 18,
                               child: CircularProgressIndicator(
                                 strokeWidth: 2,
-                                valueColor: AlwaysStoppedAnimation<Color>(AppTheme.primaryColor),
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  AppTheme.primaryColor,
+                                ),
                               ),
                             ),
                         ],

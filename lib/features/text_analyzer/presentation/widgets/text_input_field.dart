@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/theme/app_theme.dart';
 
-class TextInputField extends StatelessWidget {
+class TextInputField extends StatefulWidget {
   final TextEditingController controller;
   final ValueChanged<String> onChanged;
 
@@ -11,6 +11,38 @@ class TextInputField extends StatelessWidget {
     required this.controller,
     required this.onChanged,
   });
+
+  @override
+  State<TextInputField> createState() => _TextInputFieldState();
+}
+
+class _TextInputFieldState extends State<TextInputField> {
+  late final ScrollController _scrollController;
+  bool _showScrollToTop = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController()..addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _scrollController
+      ..removeListener(_onScroll)
+      ..dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    final showScrollToTop =
+        _scrollController.hasClients && _scrollController.offset > 0;
+    if (_showScrollToTop != showScrollToTop) {
+      setState(() {
+        _showScrollToTop = showScrollToTop;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,25 +60,47 @@ class TextInputField extends StatelessWidget {
                 color: AppTheme.textPrimaryColor,
               ),
             ),
-            if (controller.text.isNotEmpty)
-              TextButton.icon(
-                onPressed: () {
-                  controller.clear();
-                  onChanged('');
-                },
-                icon: const Icon(Icons.clear_all, size: 18),
-                label: const Text('Clear'),
-                style: TextButton.styleFrom(
-                  foregroundColor: AppTheme.textSecondaryColor,
-                ),
-              ),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (_showScrollToTop)
+                  IconButton(
+                    tooltip: 'Scroll to beginning',
+                    onPressed: () {
+                      _scrollController.animateTo(
+                        0,
+                        duration: const Duration(milliseconds: 250),
+                        curve: Curves.easeOut,
+                      );
+                    },
+                    icon: const Icon(Icons.vertical_align_top),
+                  ),
+                if (widget.controller.text.isNotEmpty)
+                  TextButton.icon(
+                    onPressed: () {
+                      widget.controller.clear();
+                      widget.onChanged('');
+                      setState(() {});
+                    },
+                    icon: const Icon(Icons.clear, size: 18),
+                    label: const Text('Clear'),
+                    style: TextButton.styleFrom(
+                      foregroundColor: AppTheme.textSecondaryColor,
+                    ),
+                  ),
+              ],
+            ),
           ],
         ),
         const SizedBox(height: 8),
         TextField(
-          controller: controller,
-          onChanged: onChanged,
-          maxLines: null,
+          controller: widget.controller,
+          scrollController: _scrollController,
+          onChanged: (text) {
+            widget.onChanged(text);
+            setState(() {});
+          },
+          maxLines: 8,
           minLines: 8,
           keyboardType: TextInputType.multiline,
           style: const TextStyle(

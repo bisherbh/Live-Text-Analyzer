@@ -19,10 +19,15 @@ class TextAnalyzerRepositoryImpl implements TextAnalyzerRepository {
     required String text,
     required int requestId,
     bool simulateFailure = false,
+    bool excludeStopWords = true,
   }) async {
     try {
       final result = await _datasource.analyzeText(
-        TextAnalysisRequest(text: text, requestId: requestId),
+        TextAnalysisRequest(
+          text: text,
+          requestId: requestId,
+          excludeStopWords: excludeStopWords,
+        ),
         simulateFailure: simulateFailure,
       );
       return Right((requestId: result.requestId, stats: result.toEntity()));

@@ -13,6 +13,8 @@ class TextAnalyzerCubit extends Cubit<TextAnalyzerState> {
   StreamSubscription? _textSubscription;
 
   int _currentRequestId = 0;
+  String _currentText = '';
+  bool _excludeStopWords = true;
 
   TextAnalyzerCubit(this._analyzeTextUseCase)
     : super(const TextAnalyzerState.initial()) {
@@ -27,7 +29,15 @@ class TextAnalyzerCubit extends Cubit<TextAnalyzerState> {
   }
 
   void onTextChanged(String text) {
+    _currentText = text;
     _textSubject.add(text);
+  }
+
+  void setExcludeStopWords(bool excludeStopWords) {
+    if (_excludeStopWords == excludeStopWords) return;
+
+    _excludeStopWords = excludeStopWords;
+    _processTextAnalysis(_currentText);
   }
 
   Future<void> simulateIsolateFailure() =>
@@ -46,6 +56,7 @@ class TextAnalyzerCubit extends Cubit<TextAnalyzerState> {
       text: text,
       requestId: requestId,
       simulateFailure: simulateFailure,
+      excludeStopWords: _excludeStopWords,
     );
 
     resultEither.fold(
