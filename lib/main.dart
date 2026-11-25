@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'core/di/injection.dart';
 import 'core/theme/app_theme.dart';
-import 'features/text_analyzer/presentation/pages/text_analyzer_page.dart';
+import 'features/splash/presentation/pages/splash_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       title: 'Live Text Analyzer',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
-      home: const TextAnalyzerPage(),
+      home: const SplashPage(),
     );
   }
 }
