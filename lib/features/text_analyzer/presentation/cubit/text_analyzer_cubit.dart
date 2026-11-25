@@ -30,25 +30,28 @@ class TextAnalyzerCubit extends Cubit<TextAnalyzerState> {
   }
 
   Future<void> _processTextAnalysis(String text) async {
-    _currentRequestId++;
-    final requestId = _currentRequestId;
+    final requestId = DateTime.now().millisecondsSinceEpoch;
+    _currentRequestId = requestId;
 
     emit(const TextAnalyzerState.loading());
 
-    try {
-      final result = await _analyzeTextUseCase(
-        text: text,
-        requestId: requestId,
-      );
+    final resultEither = await _analyzeTextUseCase(
+      text: text,
+      requestId: requestId,
+    );
 
-      if (result.requestId == _currentRequestId) {
-        emit(TextAnalyzerState.success(result.stats));
-      }
-    } catch (e) {
-      if (requestId == _currentRequestId) {
-        emit(TextAnalyzerState.failure('Text analysis failed: $e'));
-      }
-    }
+    resultEither.fold(
+      (failure) {
+        if (requestId == _currentRequestId) {
+          emit(TextAnalyzerState.failure(failure.message));
+        }
+      },
+      (data) {
+        if (data.requestId == _currentRequestId) {
+          emit(TextAnalyzerState.success(data.stats));
+        }
+      },
+    );
   }
 
   @override
