@@ -35,9 +35,12 @@ class TextAnalyzerIsolateDatasourceImpl implements TextAnalyzerIsolateDatasource
     }
 
     final whitespaceCount = RegExp(r'\s').allMatches(text).length;
-    final letterCount = RegExp(r'\p{L}', unicode: true).allMatches(text).length;
 
-    final wordRegExp = RegExp(r"\b[\w']+\b");
+    // Counts A-Z/a-z letters as well as commas (,) and dots (.) as characters
+    final letterCount = RegExp(r'[a-zA-Z,.]').allMatches(text).length;
+
+    // Words consist strictly of A-Z/a-z characters
+    final wordRegExp = RegExp(r'[a-zA-Z]+');
     final matches = wordRegExp.allMatches(text);
 
     final Map<String, int> frequencyMap = {};
@@ -47,10 +50,7 @@ class TextAnalyzerIsolateDatasourceImpl implements TextAnalyzerIsolateDatasource
       final rawWord = match.group(0);
       if (rawWord == null || rawWord.isEmpty) continue;
 
-      final cleanedWord = rawWord.replaceAll(RegExp(r"^\'+|\'+$"), '').toLowerCase();
-      if (cleanedWord.isEmpty) continue;
-
-      if (!RegExp(r'\w').hasMatch(cleanedWord)) continue;
+      final cleanedWord = rawWord.toLowerCase();
 
       totalWords++;
       frequencyMap[cleanedWord] = (frequencyMap[cleanedWord] ?? 0) + 1;
