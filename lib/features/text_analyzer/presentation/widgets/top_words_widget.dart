@@ -82,7 +82,7 @@ class TopWordsWidget extends StatelessWidget {
                                 height: 24,
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  color: AppTheme.primaryColor.withOpacity(0.1),
+                                  color: AppTheme.primaryColor.withValues(alpha: 0.1),
                                   shape: BoxShape.circle,
                                 ),
                                 child: Text(

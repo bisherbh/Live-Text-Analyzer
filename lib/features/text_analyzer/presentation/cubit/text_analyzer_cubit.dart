@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../../domain/entities/text_stats.dart';
 import '../../domain/usecases/analyze_text_usecase.dart';
 import 'text_analyzer_state.dart';
 
@@ -17,7 +16,6 @@ class TextAnalyzerCubit extends Cubit<TextAnalyzerState> {
 
   TextAnalyzerCubit(this._analyzeTextUseCase) : super(const TextAnalyzerState.initial()) {
     _setupDebounceStream();
-    // Immediately analyze initial empty state
     onTextChanged('');
   }
 
@@ -43,7 +41,6 @@ class TextAnalyzerCubit extends Cubit<TextAnalyzerState> {
         requestId: requestId,
       );
 
-      // Protect against outdated results: ensure returning requestId matches latest request
       if (result.requestId == _currentRequestId) {
         emit(TextAnalyzerState.success(result.stats));
       }
