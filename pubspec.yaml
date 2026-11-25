@@ -38,6 +38,7 @@ dependencies:
   injectable: ^2.3.2
   equatable: ^2.0.5
   rxdart: ^0.28.0
+  dartz: ^0.10.1
 
 dev_dependencies:
   flutter_test:
@@ -48,6 +49,14 @@ dev_dependencies:
   freezed: ^2.5.2
   injectable_generator: ^2.4.1
   flutter_launcher_icons: ^0.14.4
+  flutter_native_splash: ^2.4.0
+
+flutter_native_splash:
+  color: "#F8FAFC"
+  image: "assets/images/Live Text Analyzer Coding Task.png"
+  android_12:
+    color: "#F8FAFC"
+    image: "assets/images/Live Text Analyzer Coding Task.png"
 
 flutter_launcher_icons:
   android: true
