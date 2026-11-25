@@ -2,6 +2,8 @@
 
 A high-performance Flutter application built for real-time text analysis with background isolate processing, clean architecture, and modern UI.
 
+- **Flutter Version**: Flutter 3.44.8 (Dart SDK ^3.12.2)
+
 ---
 
 ## 🚀 App Download & Releases
@@ -54,6 +56,7 @@ flutter test
 
 ## 💻 Getting Started
 1. Clone the repository.
-2. Run `flutter pub get`.
-3. Run `flutter pub run build_runner build --delete-conflicting-outputs`.
-4. Run `flutter run`.
+2. Ensure you are using **Flutter 3.44.8**.
+3. Run `flutter pub get`.
+4. Run `flutter pub run build_runner build --delete-conflicting-outputs`.
+5. Run `flutter run`.
