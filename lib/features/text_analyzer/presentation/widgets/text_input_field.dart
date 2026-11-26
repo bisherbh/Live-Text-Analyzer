@@ -96,7 +96,7 @@ class _TextInputFieldState extends State<TextInputField> {
         TextField(
           controller: widget.controller,
           scrollController: _scrollController,
-          autofillHints: null,
+          // autofillHints: null,
           onChanged: (text) {
             widget.onChanged(text);
             setState(() {});
